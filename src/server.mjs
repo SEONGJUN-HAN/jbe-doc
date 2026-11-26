@@ -23,7 +23,7 @@ server.registerTool("list_jbe_presets", {
 }, async () => ({
   content: [{ type: "text", text: presets.map((p) =>
     `■ ${p.id} — ${p.label}\n  ${p.description}\n  작성법: ${p.markdown.guide}\n  근거: ${p.source.doc} (${p.source.dept}, ${p.source.posted}) ${p.source.url}`).join("\n\n") +
-    "\n\n공통: # 문서 제목, 제목 바로 아래 '> …하고자 함' 한 문장(보고 목적), ## 장(Ⅰ Ⅱ 자동 번호). 표는 GFM 파이프 표. 표지·목차(장·절·붙임)는 자동. " +
+    "\n\n공통: # 문서 제목, 제목 바로 아래 '> …하고자 함' 한 문장(보고 목적), ## 장(Ⅰ Ⅱ 자동 번호). 표는 GFM 파이프 표. 표지·목차(장, 선택하면 절까지)는 자동. 붙임은 목차에 넣지 않는다. " +
     "붙임·참고·서식은 '## 붙임 1. 제목', '## 참고 1. 제목', '## 서식 1. 제목'처럼 쓰면 새 쪽에서 라벨 상자로 시작하고 장 번호에서 빠진다(본문 뒤에 둔다)." }],
 }));
 
@@ -38,7 +38,7 @@ server.registerTool("generate_jbe_report", {
     dept: z.string().optional().describe("표지 부서명(예: 민주시민교육과). 【 】는 자동"),
     date: z.string().optional().describe("표지 날짜 'YYYY. M.' 또는 'YYYY. M. D.'. 없으면 오늘"),
     org: z.string().optional().describe("표지 기관명. 기본 전북특별자치도교육청 (학교면 학교명)"),
-    toc_depth: z.enum(["장", "절"]).optional().describe("목차 깊이. '장'=장만, '절'=장+절(기본)"),
+    toc_depth: z.enum(["장", "절"]).optional().describe("목차 깊이. '장'=장만(기본), '절'=장+절"),
     toc_pages: z.enum(["빈칸", "추정"]).optional().describe("목차 쪽 번호. '빈칸'=점선만 두고 한글에서 직접 입력(기본), '추정'=자동 추정(어긋날 수 있음)"),
   },
 }, async ({ preset, markdown, output_path, dept, date, org, toc_depth, toc_pages }) => {

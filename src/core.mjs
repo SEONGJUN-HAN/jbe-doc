@@ -156,7 +156,7 @@ async function postprocess(buf, preset, meta = {}) {
         const spec = B[role];
         if (!spec) return p;
         const vars = { title: title.trim(), num: fmtNum(counters[role], spec.num ?? "arabic"), section: counters.section, chapter: counters.chapter, task: counters.task, parent: counters.parent ?? 1 };
-        if ((role === "section" || role === "task") && toc.chapters.length && !toc.inAnnex && meta.tocDepth !== "장") toc.chapters.at(-1).items.push({ text: `${vars.num}. ${vars.title}`, title: vars.title });
+        if ((role === "section" || role === "task") && toc.chapters.length && !toc.inAnnex && meta.tocDepth === "절") toc.chapters.at(-1).items.push({ text: `${vars.num}. ${vars.title}`, title: vars.title });
         return buildBlock(doc, spec, vars, ctx);
       }
       if (preset.numberShift) return shiftNumbering(doc, p, preset.numberShift);
@@ -201,7 +201,7 @@ function defaultAnnex(preset) {
   };
 }
 
-// 목차: kordoc이 만든 장 목록(__kordoc_toc 칸) 사이에 절을 들여 넣고, 끝에 붙임 목록
+// 목차: kordoc이 만든 장 목록(__kordoc_toc 칸)에 쪽 번호 점선을 달고, tocDepth="절"이면 장 사이에 절을 들여 넣는다
 function rebuildToc(doc, p, toc, preset) {
   // kordoc은 '목 차' 제목 칸과 목록 칸에 같은 이름을 붙인다 → 장 번호(Ⅰ)가 든 칸이 목록
   const cell = [...p.matchAll(/(<hp:tc name="__kordoc_toc"[^>]*><hp:subList[^>]*>)([\s\S]*?)(<\/hp:subList>)/g)]
@@ -215,7 +215,7 @@ function rebuildToc(doc, p, toc, preset) {
   const titleInfo = doc.charPrInfo(runs.at(-1));
   const itemCp = doc.charPr({ font: titleInfo.font, pt: Math.max(10, titleInfo.pt - 2) });
   // 한 쪽 상자에 들어가도록 줄 수에 따라 장 위 간격·줄간격을 줄인다
-  const lines = chParas.length + toc.chapters.reduce((a, c) => a + c.items.length, 0) + toc.annexes.length;
+  const lines = chParas.length + toc.chapters.reduce((a, c) => a + c.items.length, 0);
   const tight = lines > 24 ? 0 : lines > 16 ? 1 : 2; // 0=가장 촘촘
   const chPrev = [300, 600, 1000][tight], line = [130, 140, 160][tight];
   // 쪽 번호: 오른쪽 점선 탭 + 자리표지(⟦pg:n⟧) — 생성 뒤 fillTocPages가 숫자로 바꾼다
@@ -247,17 +247,7 @@ function rebuildToc(doc, p, toc, preset) {
       body += `<hp:p paraPrIDRef="${itemPp}" styleIDRef="0"><hp:run charPrIDRef="${itemCp}"><hp:t>${esc(it.text)}</hp:t></hp:run>${pr.xml}</hp:p>`;
     }
   });
-  if (toc.annexes.length) {
-    const annexCp = doc.charPr({ font: titleInfo.font, pt: titleInfo.pt - 1 });
-    const annexFirst = doc.paraPrFrom(pp, { prev: chPrev + 400, next: 0, line, tabPr: tabFor(baseLeft) });
-    const annexRest = doc.paraPrFrom(pp, { prev: 0, next: 0, line, tabPr: tabFor(baseLeft) });
-    body += toc.annexes.map((a, i) => {
-      const text = `[${a.label}] ${a.title}`;
-      const pr = pageRun(annexCp, baseLeft, width(text, titleInfo.pt - 1));
-      toc.entries.push({ n: pr.n, title: a.title });
-      return `<hp:p paraPrIDRef="${i ? annexRest : annexFirst}" styleIDRef="0"><hp:run charPrIDRef="${annexCp}"><hp:t>${esc(text)}</hp:t></hp:run>${pr.xml}</hp:p>`;
-    }).join("");
-  }
+  // 붙임·참고·서식은 목차에 넣지 않는다(목차가 한 쪽을 넘기 쉬움 — 사용자 결정 2026-11-26)
   return p.replace(cell[0], cell[1] + body + cell[3]);
 }
 
@@ -331,7 +321,7 @@ function restyleSummary(doc, xml, preset) {
 
 /**
  * 마크다운 + 프리셋 객체 → hwpx(Uint8Array).
- * meta: {org, dept, date, tocDepth('장'|'절'), tocPages('빈칸'|'추정')}
+ * meta: {org, dept, date, tocDepth('장'(기본)|'절'), tocPages('빈칸'|'추정')}
  * tocPages가 '추정'이면 목차에 쪽 자리표지(⟦pg:n⟧)를 남기고 entries를 함께 돌려준다(engine.mjs가 채움).
  */
 export async function generateCore(markdown, preset, meta = {}) {
