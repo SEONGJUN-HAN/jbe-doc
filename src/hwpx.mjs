@@ -19,7 +19,7 @@ export class Hwpx {
     this.zip.file("Contents/header.xml", this.header);
     this.sectionNames.forEach((n, i) => this.zip.file(n, this.sections[i]));
     // mimetype은 압축하지 않고 맨 앞에 (hwpx 규칙)
-    return this.zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE", mimeType: "application/hwp+zip" });
+    return this.zip.generateAsync({ type: "uint8array", compression: "DEFLATE", mimeType: "application/hwp+zip" });
   }
 
   _bumpCount(tag, delta = 1) {

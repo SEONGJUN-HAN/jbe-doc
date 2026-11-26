@@ -13,7 +13,7 @@
 | **kordoc** MCP | 한글·PDF 문서 읽기, 만든 문서 미리보기(`render_document`), 일반 공문서 생성 | 권장 |
 | **jbe-doc** MCP (이 저장소) | 전북교육청 프리셋으로 보고서 생성 | 필수 |
 
-jbe-doc은 kordoc을 **자기 폴더 안에 고정 버전(4.20.0)으로 따로** 설치해 쓴다. 그래서 kordoc MCP를 따로 깔지 않아도 보고서는 만들어진다.
+jbe-doc은 kordoc을 **자기 폴더 안에 고정 버전(4.25.22)으로 따로** 설치해 쓴다. 그래서 kordoc MCP를 따로 깔지 않아도 보고서는 만들어진다.
 다만 만든 문서를 Claude가 렌더해서 확인하려면 kordoc MCP도 함께 등록해 두는 것이 좋다.
 전역 kordoc을 업데이트해도 jbe-doc 서식은 깨지지 않는다(버전이 분리되어 있음).
 
@@ -101,8 +101,15 @@ node test/validate.mjs test/out/*.hwpx  # hwpx 구조 검사
 node test/sample.mjs                  # 복잡샘플.md → test/sample/
 ```
 래퍼 안의 kordoc 버전을 올릴 때: `package.json`의 kordoc 버전 변경 → `npm install` → 위 검사 → 눈으로 확인 후 배포.
-래퍼가 기대는 kordoc 출력 특징: 장 띠 표의 `name="__kordoc_h2"` 칸, 목차 칸 `__kordoc_toc`, 목록 기호가 따로 든 run(`기호+탭`),
-표지 띠 채움색 `#193AAA`·`#A0B4E6`·`#E0E5FA`. 이것이 바뀌면 `src/engine.mjs`를 고친다.
+래퍼가 기대는 kordoc 출력 특징: 장 띠 표의 `name="__kordoc_h2"` 칸, 목차 칸 `__kordoc_toc`, 리드문 상자 `__kordoc_summary`,
+목록 기호가 따로 든 run(`기호+탭`), 표지 띠 채움색 `#193AAA`·`#A0B4E6`·`#E0E5FA`. 이것이 바뀌면 `src/core.mjs`를 고친다.
+표 합계 행은 `totalRow: "keep"`(원고 순서 그대로)으로 고정한다(kordoc 4.25 기본은 맨 위로 옮김).
+
+### 코드 구성
+- `src/core.mjs` — 생성 핵심부(전처리·kordoc·후처리). Node·브라우저 공용. 프리셋 **객체**를 받는다.
+- `src/engine.mjs` — Node 전용: `presets/*.json` 읽기, 목차 쪽 번호 추정(kordoc 조판).
+- `src/server.mjs` — MCP 서버.
+- 브라우저용 [공문만들기] HTML 도구도 `src/core.mjs`와 `presets/*.json`을 번들해 같은 서식을 쓴다.
 
 ## 알려진 한계 (v0.1)
 - `toc_pages: '추정'`의 쪽 번호는 kordoc 조판 기준이라 한글과 어긋날 수 있다(표가 많으면 뒤쪽이 한 쪽씩 밀림). 그래서 기본은 빈칸이다.

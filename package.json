@@ -5,15 +5,19 @@
   "repository": "github:SEONGJUN-HAN/jbe-doc",
   "description": "전북교육청 개조식 보고서 프리셋 — kordoc 위에 얹는 래퍼 MCP",
   "type": "module",
-  "bin": { "jbe-doc-mcp": "src/server.mjs" },
+  "bin": {
+    "jbe-doc-mcp": "src/server.mjs"
+  },
   "scripts": {
     "check": "node test/check.mjs"
   },
   "dependencies": {
-    "kordoc": "4.20.0",
     "@modelcontextprotocol/sdk": "^1.29.0",
     "jszip": "^3.10.1",
+    "kordoc": "4.25.22",
     "zod": "^3.23.0"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  }
 }
