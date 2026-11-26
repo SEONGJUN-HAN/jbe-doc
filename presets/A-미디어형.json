@@ -1,0 +1,174 @@
+{
+  "id": "jbe-띠형",
+  "label": "A 띠형 (남색 장 칸 + 숫자 절)",
+  "description": "남색 Ⅰ 칸과 밑줄 제목으로 장을, 남색 숫자 칸과 점선 상자로 절을 나눈다. ❍·- 휴먼명조 14pt, 줄간격 170%. 여러 절로 나뉘는 기본계획·추진계획에 알맞다.",
+  "source": {
+    "doc": "2026 미디어리터러시 교육 기본 계획",
+    "dept": "민주시민교육과",
+    "posted": "2026-01-22",
+    "url": "https://www.jbe.go.kr/board/view.jbe?boardId=BBS_0000191&menuCd=DOM_000000106001002000&dataSid=994915",
+    "measured": "장 칸 #1D1E42 맑은 고딕 19pt 흰 글씨, 장 제목 HY헤드라인M 20pt + 밑줄 0.15mm, 절 칸 #1D1E42 17pt + 점선 상자 #1C6D4D 제목 16pt, 여백 위아래 15mm 좌우 20mm"
+  },
+  "markdown": {
+    "headings": {
+      "###": "section",
+      "####": "dae"
+    },
+    "guide": "## 장 → ### 절(숫자 칸) → #### □ 대항목 → - ❍ → 들여쓴 - 붙임표. ※는 줄 첫머리에."
+  },
+  "kordoc": {
+    "preset": "개조식",
+    "toc": true,
+    "margins": {
+      "top": 15,
+      "bottom": 15,
+      "left": 20,
+      "right": 20
+    },
+    "lineSpacing": 170,
+    "bodyPt": 14,
+    "fonts": {
+      "body": "휴먼명조",
+      "heading": "HY헤드라인M",
+      "ref": "맑은 고딕",
+      "table": "휴먼명조"
+    },
+    "sizes": {
+      "dae": 15,
+      "cham": 12,
+      "table": 12
+    },
+    "bullet2": "○"
+  },
+  "bullets": {
+    "○": "❍"
+  },
+  "blocks": {
+    "chapter": {
+      "num": "roman",
+      "height": 2648,
+      "before": 2200,
+      "after": 300,
+      "cells": [
+        {
+          "w": 2870,
+          "fill": "#1D1E42",
+          "border": {
+            "all": [
+              "SOLID",
+              "0.4 mm",
+              "#1D1E42"
+            ]
+          },
+          "text": "{num}",
+          "align": "CENTER",
+          "font": {
+            "font": "맑은 고딕",
+            "pt": 19,
+            "bold": true,
+            "color": "#FFFFFF"
+          }
+        },
+        {
+          "w": 869,
+          "border": {
+            "left": [
+              "SOLID",
+              "0.4 mm",
+              "#1D1E42"
+            ]
+          }
+        },
+        {
+          "w": "rest",
+          "border": {
+            "bottom": [
+              "SOLID",
+              "0.15 mm",
+              "#000000"
+            ]
+          },
+          "text": " {title}",
+          "font": {
+            "font": "HY헤드라인M",
+            "pt": 20
+          }
+        }
+      ]
+    },
+    "section": {
+      "num": "arabic",
+      "height": 2713,
+      "before": 1300,
+      "after": 200,
+      "cells": [
+        {
+          "w": 2872,
+          "fill": "#1D1E42",
+          "border": {
+            "all": [
+              "SOLID",
+              "0.12 mm",
+              "#1D1E42"
+            ]
+          },
+          "text": "{num}",
+          "align": "CENTER",
+          "font": {
+            "font": "맑은 고딕",
+            "pt": 17,
+            "bold": true,
+            "color": "#FFFFFF"
+          }
+        },
+        {
+          "w": "rest",
+          "border": {
+            "left": [
+              "SOLID",
+              "0.12 mm",
+              "#1C6D4D"
+            ],
+            "right": [
+              "DASH",
+              "0.12 mm",
+              "#1C6D4D"
+            ],
+            "top": [
+              "DASH",
+              "0.12 mm",
+              "#1C6D4D"
+            ],
+            "bottom": [
+              "DASH",
+              "0.12 mm",
+              "#1C6D4D"
+            ]
+          },
+          "text": " {title}",
+          "font": {
+            "font": "HY헤드라인M",
+            "pt": 16
+          }
+        }
+      ]
+    }
+  },
+  "cover": {
+    "bars": [
+      [
+        "#1A9BE6",
+        "#FFCC00",
+        0.5
+      ],
+      [
+        "#33A02C",
+        "#FF3300",
+        0.5
+      ]
+    ],
+    "accent": "#1D1E42",
+    "accentPale": "#E8E8EF",
+    "deptFont": "HY헤드라인M"
+  }
+}

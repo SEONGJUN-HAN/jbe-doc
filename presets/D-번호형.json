@@ -1,0 +1,200 @@
+{
+  "id": "jbe-번호형",
+  "label": "D 번호형 (청회색 장 칸 + 과제 띠 + 가. 1) 가))",
+  "description": "청회색 Ⅰ 칸과 밑줄 제목으로 장을, '1.' 글자 제목으로 절을, 파랑 '과제 n' 띠로 과제를 나눈다. 본문은 기호 대신 가. → 1) → 가) 번호. 과제별 세부 내용이 긴 기본계획에 알맞다.",
+  "source": {
+    "doc": "2026년 대입 맞춤형 진학지도 기본계획(2027학년도 대입)",
+    "dept": "중등교육과",
+    "posted": "2026-01-19",
+    "url": "https://www.jbe.go.kr/board/view.jbe?boardId=BBS_0000083&menuCd=DOM_000000106001001000&dataSid=993420",
+    "measured": "장 칸 #31586B HY헤드라인M 20pt 굵게 흰 글씨, 장 제목 HY헤드라인M 17pt 굵게 #132A43 + 글자 폭 밑줄 0.5mm #58687B, 과제 칸 #2D629C 17pt + 밑줄 #0E0E2C, 절 '1.' HY헤드라인M 15pt, 소절 '1-1.' 14pt 굵게, 본문 휴먼명조 13pt(1)·가) 일치 100%)"
+  },
+  "markdown": {
+    "headings": {
+      "###": "section",
+      "####": "sub"
+    },
+    "guide": "## 장 → ### 절('1.') 또는 '### 과제: 제목'(과제 띠) → #### 소절('1-1.') → - 가. → 들여쓴 - 1) → 더 들여쓴 - 가). 번호는 자동."
+  },
+  "kordoc": {
+    "preset": "개조식",
+    "numbering": "standard",
+    "toc": true,
+    "margins": {
+      "top": 15,
+      "bottom": 15,
+      "left": 20,
+      "right": 20
+    },
+    "lineSpacing": 160,
+    "bodyPt": 13,
+    "fonts": {
+      "body": "휴먼명조",
+      "heading": "HY헤드라인M",
+      "ref": "맑은 고딕",
+      "table": "맑은 고딕"
+    },
+    "sizes": {
+      "cham": 11,
+      "table": 11
+    }
+  },
+  "numberShift": {
+    "indent": 1400,
+    "wide": 550,
+    "paren": 350
+  },
+  "blocks": {
+    "chapter": {
+      "num": "roman",
+      "height": 2850,
+      "before": 2200,
+      "after": 300,
+      "cells": [
+        {
+          "w": 3380,
+          "fill": "#31586B",
+          "border": {
+            "all": [
+              "SOLID",
+              "0.12 mm",
+              "#31586B"
+            ]
+          },
+          "text": "{num}",
+          "align": "CENTER",
+          "font": {
+            "font": "HY헤드라인M",
+            "pt": 20,
+            "bold": true,
+            "color": "#FFFFFF"
+          }
+        },
+        {
+          "w": 850
+        },
+        {
+          "w": "fit",
+          "border": {
+            "bottom": [
+              "SOLID",
+              "0.5 mm",
+              "#58687B"
+            ]
+          },
+          "text": " {title}",
+          "font": {
+            "font": "HY헤드라인M",
+            "pt": 17,
+            "bold": true,
+            "color": "#132A43"
+          }
+        },
+        {
+          "w": "rest"
+        }
+      ]
+    },
+    "section": {
+      "type": "para",
+      "num": "arabic",
+      "before": 1300,
+      "after": 200,
+      "runs": [
+        {
+          "text": "{num}.",
+          "font": {
+            "font": "HY헤드라인M",
+            "pt": 15,
+            "bold": true
+          }
+        },
+        {
+          "text": " {title}",
+          "font": {
+            "font": "HY헤드라인M",
+            "pt": 15
+          }
+        }
+      ]
+    },
+    "task": {
+      "num": "arabic",
+      "height": 2700,
+      "before": 1500,
+      "after": 300,
+      "cells": [
+        {
+          "w": 6460,
+          "fill": "#2D629C",
+          "border": {
+            "all": [
+              "SOLID",
+              "0.12 mm",
+              "#0E0E2C"
+            ]
+          },
+          "text": "과제 {num}",
+          "align": "CENTER",
+          "font": {
+            "font": "HY헤드라인M",
+            "pt": 17,
+            "color": "#FFFFFF"
+          }
+        },
+        {
+          "w": 565
+        },
+        {
+          "w": "rest",
+          "border": {
+            "bottom": [
+              "SOLID",
+              "0.4 mm",
+              "#0E0E2C"
+            ]
+          },
+          "text": " {title}",
+          "font": {
+            "font": "HY헤드라인M",
+            "pt": 17
+          }
+        }
+      ]
+    },
+    "sub": {
+      "type": "para",
+      "num": "arabic",
+      "before": 800,
+      "after": 150,
+      "runs": [
+        {
+          "text": "{parent}-{num}. {title}",
+          "font": {
+            "font": "HY헤드라인M",
+            "pt": 14,
+            "bold": true
+          }
+        }
+      ]
+    }
+  },
+  "cover": {
+    "bars": [
+      [
+        "#1F3864",
+        "#1F3864",
+        0.5
+      ],
+      [
+        "#31586B",
+        "#31586B",
+        0.5
+      ]
+    ],
+    "accent": "#31586B",
+    "accentPale": "#E9EEF1",
+    "deptFont": "HY헤드라인M",
+    "deptColor": "#132A43"
+  }
+}
